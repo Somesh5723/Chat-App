@@ -14,9 +14,11 @@ function App() {
       return <Navigate to='/login'/>
     }
 
-    return children
-  }
+    return children;
+  };
+
   console.log(currentUser);
+  
   return (
     <BrowserRouter>
       <Routes>

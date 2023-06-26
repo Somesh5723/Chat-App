@@ -9,9 +9,14 @@ import addAvatar from '../img/addAvatar.png'
 
 const Register = ()=> {
 
-  const [err,setErr] = useState(false)
-  const navigate = useNavigate()
+  const [err,setErr] = useState(false);
+  const navigate = useNavigate();
+  // const [ selectedFile , setSelectedFile ] = useState(null);
 
+  // const handleFileChange = (e)=>{
+  //   setSelectedFile(e.target[3].files[0]);
+  //   console.log(selectedFile);
+  // }
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -29,7 +34,7 @@ const Register = ()=> {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
-    const storageRef = ref(storage, displayName);
+    const storageRef = ref(storage, `${displayName}_${Date.now()}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -37,7 +42,7 @@ const Register = ()=> {
     // 1. 'state_changed' observer, called any time the state changes
     // 2. Error observer, called on failure
     // 3. Completion observer, called on successful completion
-    uploadTask.on(
+    uploadTask.on( 
       
       (error) => {
         // Handle unsuccessful uploads
@@ -46,7 +51,7 @@ const Register = ()=> {
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
+        getDownloadURL(storageRef).then( async (downloadURL) => {
           await updateProfile(res.user,{
             displayName,
             photoURL : downloadURL,
@@ -65,7 +70,7 @@ const Register = ()=> {
       }
     );
   } catch (err) {
-      setErr(true);
+      setErr(err.message);
       console.log(err)
   }
     
@@ -81,7 +86,8 @@ const Register = ()=> {
                 <input type={"text"} placeholder='Name' />
                 <input type={"email"} placeholder='E-mail'/>
                 <input type={"password"} placeholder='Password'/>
-                <input style={{display:"none"}} type={"file"} id='file'/>
+                <input style={{display:"none"}} type={"file"} id='file' />
+                {/* onChange={handleFileChange} */}
                 <label htmlFor="file">
                     <img src={addAvatar}  alt="" />
                     <span>Add an Avatar</span>
