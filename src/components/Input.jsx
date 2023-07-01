@@ -16,10 +16,11 @@ const Input = () => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
+  // handling send button
   const handleSend = async ()=>{
 
     if(img){
-
+      // passing storage reference 
       const storageRef = ref(storage , uuid());
       const uploadTask = uploadBytesResumable(storageRef , img);
 
@@ -56,7 +57,8 @@ const Input = () => {
         }),
       });
     }
-
+    // updating document 
+    // updating current user
     await updateDoc(doc(db , "userChats" , currentUser.uid),{
       [data.chatId + ".lastMessage"]:{
         text,
@@ -64,7 +66,7 @@ const Input = () => {
       [data.chatId + ".date"]:serverTimestamp(),
     });
 
-
+  // updating data of user 
     await updateDoc(doc(db , "userChats" , data.user.uid),{
       [data.chatId + ".lastMessage"]:{
         text,

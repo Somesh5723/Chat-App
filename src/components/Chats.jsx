@@ -3,10 +3,11 @@ import { onSnapshot , doc } from "firebase/firestore";
 import { db } from '../firebase';
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext';
+
 const Chats = () => {
 
   const [chats , setChats] = useState([])
-
+  // fetching current user
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
@@ -30,6 +31,7 @@ const Chats = () => {
     currentUser.uid && getChats(); 
   },[currentUser.uid]);
 
+  // Changing user 
   const handleSelect =(u)=> {
     dispatch({ type:"CHANGE_USER" , payload:u});
   };

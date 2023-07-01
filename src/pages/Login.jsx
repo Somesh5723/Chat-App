@@ -9,13 +9,14 @@ const Login = ()=> {
   const [err,setErr] = useState(false);
   const navigate = useNavigate();
 
-
+  // handling login data 
   const handleSubmit = async (e)=>{
     e.preventDefault()
     const email = e.target[0].value;
     const password = e.target[1].value;
 
   try {
+    // if data found then navigate to home page
     await signInWithEmailAndPassword(auth, email, password);
     navigate("/");
 

@@ -11,6 +11,7 @@ const Search = () => {
 
   const { currentUser } = useContext(AuthContext)
 
+// handling search functionality 
   const handleSearch = async () => {
     const q = query(collection(db , "users") , where("displayName", "==" , username));
 
@@ -26,7 +27,7 @@ const Search = () => {
     }
     
   };
-
+//  on pressing enter contact will be showing 
   const handleKey = (e) => {
     e.code === "Enter" && handleSearch();
   }

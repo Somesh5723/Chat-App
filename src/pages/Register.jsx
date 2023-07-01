@@ -18,6 +18,7 @@ const Register = ()=> {
   //   console.log(selectedFile);
   // }
 
+  // HANDLING REGISTRATION BUTTON
   const handleSubmit = async (e)=>{
     e.preventDefault()
     const displayName = e.target[0].value;
@@ -48,6 +49,7 @@ const Register = ()=> {
         // Handle unsuccessful uploads
         setErr(true);
       }, 
+
       () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
@@ -64,6 +66,7 @@ const Register = ()=> {
             photoURL : downloadURL,
           });
 
+          // after registeration  navigating to home page
           await setDoc(doc(db, "userChats", res.user.uid),{});
           navigate("/");
         });
