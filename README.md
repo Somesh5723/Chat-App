@@ -1,5 +1,5 @@
 
-# Check Hosted project[Click here ](https://somesh-chat-app.netlify.app/).
+# Check Hosted project: [Click here ](https://somesh-chat-app.netlify.app/).
 
 # Getting Started with Create React App
 
